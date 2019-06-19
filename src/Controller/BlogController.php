@@ -10,13 +10,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlogController extends AbstractController
 {
-    /**
-     * @Route("/blog", name="blog_index")
-    */
-    public function index()
+ /**
+     * @Route("/blog/show/{slug}", requirements={"slug"="[a-z0-9-\.:\/\/=&]+"},
+     *     name="blog_show")
+     */
+    public function show(string $slug='Article Sans Titre')
     {
-        return $this->render('blog/index.html.twig', [
-                'owner' => 'Thomas',
+        $title = ucwords(str_replace('-', ' ', $slug));
+        return $this->render('blog/show.html.twig', [
+            'slug' => $title,
         ]);
     }
 }
